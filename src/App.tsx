@@ -25,13 +25,14 @@ export const App = () => {
   const [fontColorDepth, setFontColorDepth] = useState(500)
   const [bgColor, setBgColor] = useState('whiteAlpha')
   const [bgColorDepth, setBgColorDepth] = useState(500)
-  const [isItalic, setIsItalic] = useState(false)
   const [fontWeight, setFontWeight] = useState(400)
+  const [isLuminous, setIsLuminous] = useState(false)
+  const [isItalic, setIsItalic] = useState(false)
   const [open, setOpen] = useState(true)
 
   const bg = `${bgColor}.${bgColorDepth}`
   const color = `${fontColor}.${fontColorDepth}`
-
+ 
   return (
     <Box
       h='100vh'
@@ -47,6 +48,7 @@ export const App = () => {
         fontSize={fontSize}
         fontWeight={`${fontWeight}`}
         color={color}
+        textShadow={isLuminous ? `0 0 20px ${fontColor.replace('Alpha', '')}` : ''}
         fontStyle={isItalic ? 'italic' : 'normal'}
       >
         {text}
@@ -86,9 +88,10 @@ export const App = () => {
               <SliderTrack><SliderFilledTrack bg={bg}/></SliderTrack><SliderThumb borderColor={bg}/>
             </Slider>
             <Checkbox checked={isItalic} onChange={() => setIsItalic(!isItalic)}><Title value={'italic'} /></Checkbox>
+            <Checkbox checked={isLuminous} onChange={() => setIsLuminous(!isLuminous)}><Title value={'luminous'} /></Checkbox>
             <Title value={'font color'} />
             <Select value={fontColor} onChange={(e) => setFontColor(e.target.value)} >
-              {colors.map(c => <option key={c} value={c}>{c}</option>)}
+              {colors.map(c => <option key={c} value={c}>{c.replace('Alpha', '')}</option>)}
             </Select>
             <Title value={'font color depth'} />
             <Slider min={100} max={900} step={100} value={fontColorDepth} onChange={setFontColorDepth}>
@@ -96,7 +99,7 @@ export const App = () => {
             </Slider>
             <Title value={'background color'} />
             <Select value={bgColor} onChange={(e) => setBgColor(e.target.value)} >
-              {colors.map(c => <option key={c} value={c}>{c}</option>)}
+              {colors.map(c => <option key={c} value={c}>{c.replace('Alpha', '')}</option>)}
             </Select>
             <Title value={'background color depth'} />
             <Slider min={100} max={900} step={100} value={bgColorDepth} onChange={setBgColorDepth}>
